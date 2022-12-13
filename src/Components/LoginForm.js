@@ -1,6 +1,6 @@
 import React from "react";
 
-const LoginForm = ({changeAuthMode}) => {
+const LoginForm = ({ changeAuthMode, loginInfo, onChange }) => {
   return (
     <div className="Auth-form-container">
       <form className="Auth-form">
@@ -15,7 +15,11 @@ const LoginForm = ({changeAuthMode}) => {
           <div className="form-group mt-3">
             <label>Email address</label>
             <input
+              id="email"
+              name="email"
               type="email"
+              value={loginInfo.email}
+              onChange={onChange}
               className="form-control mt-1"
               placeholder="Enter email"
             />
@@ -23,7 +27,11 @@ const LoginForm = ({changeAuthMode}) => {
           <div className="form-group mt-3">
             <label>Password</label>
             <input
+              id="password"
+              name="password"
               type="password"
+              value={loginInfo.password}
+              onChange={onChange}
               className="form-control mt-1"
               placeholder="Enter password"
             />

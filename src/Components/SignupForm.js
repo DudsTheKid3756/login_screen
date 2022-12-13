@@ -1,11 +1,11 @@
 import React from "react";
 
-const SignupForm = ({changeAuthMode}) => {
+const SignupForm = ({ changeAuthMode, signUpInfo, onChange }) => {
   return (
     <div className="Auth-form-container">
       <form className="Auth-form">
         <div className="Auth-form-content">
-          <h3 className="Auth-form-title">Sign In</h3>
+          <h3 className="Auth-form-title">Sign Up</h3>
           <div className="text-center">
             Already registered?{" "}
             <span className="link-primary" onClick={changeAuthMode}>
@@ -15,7 +15,11 @@ const SignupForm = ({changeAuthMode}) => {
           <div className="form-group mt-3">
             <label>Full Name</label>
             <input
-              type="email"
+              id="fullName"
+              name="fullName"
+              type="text"
+              value={signUpInfo.fullName}
+              onChange={onChange}
               className="form-control mt-1"
               placeholder="e.g Jane Doe"
             />
@@ -23,7 +27,11 @@ const SignupForm = ({changeAuthMode}) => {
           <div className="form-group mt-3">
             <label>Email address</label>
             <input
+              id="email"
+              name="email"
               type="email"
+              value={signUpInfo.email}
+              onChange={onChange}
               className="form-control mt-1"
               placeholder="Email Address"
             />
@@ -31,7 +39,11 @@ const SignupForm = ({changeAuthMode}) => {
           <div className="form-group mt-3">
             <label>Password</label>
             <input
+              id="password"
+              name="password"
               type="password"
+              value={signUpInfo.password}
+              onChange={onChange}
               className="form-control mt-1"
               placeholder="Password"
             />
@@ -41,9 +53,6 @@ const SignupForm = ({changeAuthMode}) => {
               Submit
             </button>
           </div>
-          <p className="text-center mt-2">
-            Forgot <a href="#">password?</a>
-          </p>
         </div>
       </form>
     </div>
