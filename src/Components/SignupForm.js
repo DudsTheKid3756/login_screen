@@ -1,6 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { storeItem } from "../storage";
 
-const SignupForm = ({ changeAuthMode, signUpInfo, onChange }) => {
+const SignupForm = ({ changeAuthMode, signUpInfo, setSignUpInfo, onChange }) => {
+  const navigate = useNavigate();
+
+  const onSignUp = (e) => {
+    e.preventDefault();
+    storeItem(signUpInfo.email, signUpInfo, "session");
+    navigate("/", { state: signUpInfo.email });
+    setSignUpInfo((values) => Object.values(values).fill(""));
+  };
+
   return (
     <div className="Auth-form-container">
       <form className="Auth-form">
@@ -8,7 +19,7 @@ const SignupForm = ({ changeAuthMode, signUpInfo, onChange }) => {
           <h3 className="Auth-form-title">Sign Up</h3>
           <div className="text-center">
             Already registered?{" "}
-            <span className="link-primary" onClick={changeAuthMode}>
+            <span className="link-primary Link-auth-mode" onClick={changeAuthMode}>
               Sign In
             </span>
           </div>
@@ -49,7 +60,11 @@ const SignupForm = ({ changeAuthMode, signUpInfo, onChange }) => {
             />
           </div>
           <div className="d-grid gap-2 mt-3">
-            <button type="submit" className="btn btn-primary">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              onClick={onSignUp}
+            >
               Submit
             </button>
           </div>

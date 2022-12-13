@@ -9,12 +9,13 @@ const Auth = () => {
     setAuthMode(authMode === "signin" ? "signup" : "signin");
   };
 
-  const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
   const [signUpInfo, setSignUpInfo] = useState({
     fullName: "",
     email: "",
     password: "",
   });
+
+  const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
 
   const onChange = (e, setInfo) => {
     const { name, value } = e.target;
@@ -25,12 +26,14 @@ const Auth = () => {
     <LoginForm
       changeAuthMode={changeAuthMode}
       loginInfo={loginInfo}
+      setLoginInfo={setLoginInfo}
       onChange={(e) => onChange(e, setLoginInfo)}
     />
   ) : (
     <SignupForm
       changeAuthMode={changeAuthMode}
       signUpInfo={signUpInfo}
+      setSignUpInfo={setSignUpInfo}
       onChange={(e) => onChange(e, setSignUpInfo)}
     />
   );

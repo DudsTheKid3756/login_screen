@@ -1,5 +1,5 @@
 const storeItem = (key, item, storageType) =>
-  JSON.stringify(window[`${storageType}Storage`].setItem(key, item));
+  window[`${storageType}Storage`].setItem(key, JSON.stringify(item));
 
 const getItem = (key, storageType) =>
   JSON.parse(window[`${storageType}Storage`].getItem(key));

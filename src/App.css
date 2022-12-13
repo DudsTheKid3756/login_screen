@@ -32,6 +32,10 @@
   font-weight: 800;
 }
 
+.Link-auth-mode {
+  cursor: pointer;
+}
+
 label {
   font-size: 14px;
   font-weight: 600;
