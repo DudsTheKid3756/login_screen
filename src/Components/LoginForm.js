@@ -1,20 +1,18 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { getItem } from "../storage";
+import { getItem, storeItem } from "../storage";
 
 const LoginForm = ({ changeAuthMode, loginInfo, setLoginInfo, onChange }) => {
-  const navigate = useNavigate();
+  const tokenKey = getItem(loginInfo.email, "session");
 
   const onLogin = (e) => {
     e.preventDefault();
-    const result = getItem(loginInfo.email, "session");
-    if (result !== null) {
-      if (
-        result.email === loginInfo.email &&
-        result.password === loginInfo.password
-      )
-        navigate("/", { state: loginInfo.email });
-    } else console.error("stuff was wrong or something");
+    if (
+      tokenKey === null ||
+      tokenKey.email !== loginInfo.email ||
+      tokenKey.password !== loginInfo.password
+    )
+      console.error("stuff was wrong or something");
+    else storeItem("loggedIn", true, "local");
 
     setLoginInfo((values) => Object.values(values).fill(""));
   };

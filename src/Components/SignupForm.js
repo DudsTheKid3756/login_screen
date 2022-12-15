@@ -1,14 +1,16 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { storeItem } from "../storage";
 
-const SignupForm = ({ changeAuthMode, signUpInfo, setSignUpInfo, onChange }) => {
-  const navigate = useNavigate();
-
+const SignupForm = ({
+  changeAuthMode,
+  signUpInfo,
+  setSignUpInfo,
+  onChange,
+}) => {
   const onSignUp = (e) => {
     e.preventDefault();
     storeItem(signUpInfo.email, signUpInfo, "session");
-    navigate("/", { state: signUpInfo.email });
+    storeItem("loggedIn", true, "local");
     setSignUpInfo((values) => Object.values(values).fill(""));
   };
 
@@ -19,7 +21,10 @@ const SignupForm = ({ changeAuthMode, signUpInfo, setSignUpInfo, onChange }) => 
           <h3 className="Auth-form-title">Sign Up</h3>
           <div className="text-center">
             Already registered?{" "}
-            <span className="link-primary Link-auth-mode" onClick={changeAuthMode}>
+            <span
+              className="link-primary Link-auth-mode"
+              onClick={changeAuthMode}
+            >
               Sign In
             </span>
           </div>
