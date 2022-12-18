@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import { IIsLoggedIn, LoginContextType } from "../@types/login";
+import { LoginContext } from "../LoginContext";
 import { storeItem } from "../storage";
 
 const SignupForm = ({
@@ -7,11 +9,15 @@ const SignupForm = ({
   setSignUpInfo,
   onChange,
 }) => {
-  const onSignUp = (e) => {
+  const { handleLogIn } = useContext(LoginContext) as LoginContextType;
+
+  const onSignUp = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     storeItem(signUpInfo.email, signUpInfo, "session");
-    storeItem("loggedIn", true, "local");
-    setSignUpInfo((values) => Object.values(values).fill(""));
+    handleLogIn(true as unknown as IIsLoggedIn);
+    setSignUpInfo((values: { [s: string]: unknown } | ArrayLike<unknown>) =>
+      Object.values(values).fill("")
+    );
   };
 
   return (

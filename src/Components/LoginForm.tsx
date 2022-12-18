@@ -1,10 +1,13 @@
-import React from "react";
-import { getItem, storeItem } from "../storage";
+import React, { useContext } from "react";
+import { IIsLoggedIn, LoginContextType } from "../@types/login";
+import { LoginContext } from "../LoginContext";
+import { getItem } from "../storage";
 
 const LoginForm = ({ changeAuthMode, loginInfo, setLoginInfo, onChange }) => {
+  const { handleLogIn } = useContext(LoginContext) as LoginContextType;
   const tokenKey = getItem(loginInfo.email, "session");
 
-  const onLogin = (e) => {
+  const onLogin = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if (
       tokenKey === null ||
@@ -12,9 +15,11 @@ const LoginForm = ({ changeAuthMode, loginInfo, setLoginInfo, onChange }) => {
       tokenKey.password !== loginInfo.password
     )
       console.error("stuff was wrong or something");
-    else storeItem("loggedIn", true, "local");
+    else handleLogIn(true as unknown as IIsLoggedIn);
 
-    setLoginInfo((values) => Object.values(values).fill(""));
+    setLoginInfo((values: { [s: string]: unknown } | ArrayLike<unknown>) =>
+      Object.values(values).fill("")
+    );
   };
 
   return (

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IAuthInfo } from "../@types/auth";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 
@@ -17,9 +18,9 @@ const Auth = () => {
 
   const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
 
-  const onChange = (e, setInfo) => {
+  const onChange = (e: IAuthInfo , setInfo: IAuthInfo) => {
     const { name, value } = e.target;
-    setInfo((values) => ({ ...values, [name]: value }));
+    setInfo.setInfo((values: any) => ({ ...values, [name]: value }));
   };
 
   return authMode === "signin" ? (
@@ -27,14 +28,14 @@ const Auth = () => {
       changeAuthMode={changeAuthMode}
       loginInfo={loginInfo}
       setLoginInfo={setLoginInfo}
-      onChange={(e) => onChange(e, setLoginInfo)}
+      onChange={(e: IAuthInfo, setLoginInfo: IAuthInfo) => onChange(e, setLoginInfo)}
     />
   ) : (
     <SignupForm
       changeAuthMode={changeAuthMode}
       signUpInfo={signUpInfo}
       setSignUpInfo={setSignUpInfo}
-      onChange={(e) => onChange(e, setSignUpInfo)}
+      onChange={(e: IAuthInfo, setSignUpInfo: IAuthInfo) => onChange(e, setSignUpInfo)}
     />
   );
 };
